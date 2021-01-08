@@ -3,7 +3,7 @@ package fantasy;
 import java.util.ArrayList;
 
 public class squadInfo {
-	private static int totalSquadValue = 100000000;
+	private static int maxSquadValue = 100000000;
 	private int curSquadValue = 0;
 	private int numGoalKeaper = 0;
 	private int numDefend = 0;
@@ -16,36 +16,36 @@ public class squadInfo {
 		sPlayerList = new ArrayList<playerInfo>();
 	}
 	
-	public void setCurSquadValue(int x) {
-		this.curSquadValue = x;
+	public void setCurSquadValue(int curVal) {
+		this.curSquadValue = curVal;
 	}
 	
-	public void setSquadUserMail(String x) {
-		this.sUserMail = x;
+	public void setSquadUserMail(String userMail) {
+		this.sUserMail = userMail;
 	}
 	
-	public void setNumGoal(int x) {
-		this.numGoalKeaper = x;
+	public void setNumGoal(int nGoal) {
+		this.numGoalKeaper = nGoal;
 	}
 	
-	public void setNumDef(int x) {
-		this.numDefend = x;
+	public void setNumDef(int nDef) {
+		this.numDefend = nDef;
 	}
 	
-	public void seNumtMidF(int x) {
-		this.numMidField = x;
+	public void seNumtMidF(int nMid) {
+		this.numMidField = nMid;
 	}
 	
-	public void setNumForw(int x) {
-		this.numForward = x;
+	public void setNumForw(int nFor) {
+		this.numForward = nFor;
 	}
 	
 	
 	/**
 	 * @return the totalSquadValue
 	 */
-	public static int getTotalSquadValue() {
-		return totalSquadValue;
+	public int getMaxSquadValue() {
+		return maxSquadValue;
 	}
 	
 	public String getSquadUserMail() {

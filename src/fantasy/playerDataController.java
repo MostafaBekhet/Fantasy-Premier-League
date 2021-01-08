@@ -29,6 +29,7 @@ public class playerDataController implements DataController {
 				playerObj.setPosition(part[2]);
 				playerObj.setClub(part[3]);
 				playerObj.setPrice(Integer.parseInt(part[4]));
+				playerObj.setPoints(Integer.parseInt(part[5]));
 				
 				if(!find(pl , playerObj.getpName() , playerObj.getNationality())) {
 					pl.playerList.add(playerObj);
@@ -60,6 +61,7 @@ public class playerDataController implements DataController {
 				wr += " " + x.getPosition();
 				wr += " " + x.getClub();
 				wr += " " + x.getPrice();
+				wr += " " + x.getPoints();
 	            	            	            
 	            writer.write(wr + "\n");
 	            wr = "";

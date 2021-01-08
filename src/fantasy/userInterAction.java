@@ -19,54 +19,6 @@ public class userInterAction {
 		return userD.find(pl , mail, pass);
 	}
 	
-	public void addPlayer(parentLists pl) {
-		
-		playerObj = new playerInfo();
-		
-		System.out.print("Please enter your player name: ");
-		tempString = sc.next();
-		playerObj.setpName(tempString);
-		
-		System.out.print("Please enter player's Nationality: ");
-		tempString = sc.next();
-		playerObj.setNationality(tempString);
-		
-		System.out.print("Player's position, Please enter 1,2,3 or 4 for Goalkeaper,Dedender,Midfield or Forward respectivley: ");
-		tempInt = sc.nextInt();
-		
-		if(tempInt == 1) {
-			playerObj.setPosition("Goalkeaper");
-		}else if (tempInt == 2) {
-			playerObj.setPosition("Dedender");
-		}else if (tempInt == 3) {
-			playerObj.setPosition("Midfield");
-		}else if (tempInt == 4) {
-			playerObj.setPosition("Forward");
-		}else {
-			System.out.print("Invalid choice!");
-			return;
-		}
-		
-		System.out.print("Please enter your player's club: ");
-		tempString = sc.next();
-		playerObj.setClub(tempString);
-		
-		System.out.print("Please enter your player's price: ");
-		tempInt = sc.nextInt();
-		playerObj.setPrice(tempInt);
-		
-		if(!playerD.find(pl , playerObj.getpName() , playerObj.getNationality())) {
-			pl.playerList.add(playerObj);
-			playerD.modifyData(pl);
-			
-			System.out.println("Player added Successfully!");
-			
-		}else {
-			System.out.println("Player already exists!");
-		}
-		
-	}
-	
 	public void createSquad(parentLists pl , String userMail) {
 		
 		squadObj = new squadInfo();
@@ -75,10 +27,12 @@ public class userInterAction {
 		System.out.println("Here is a list of available Players..");
 		playerD.print(pl);
 		
-		System.out.println("You have to pick 15 player(Goalkeaper 2, Dedender 5, Midfield 5, Forward 3)");
+		System.out.println("You have to pick 15 player(GoalKeaper 2, Defender 5, Midfield 5, Forward 3)");
 		
 		for(int i = 0; i < 15; ++i) {
 			
+			boolean can = false;
+			boolean foundSamePlayer = false;
 			playerObj = new playerInfo();
 			
 			System.out.print("Please enter right playerName to add to your squad: ");
@@ -86,19 +40,31 @@ public class userInterAction {
 			playerObj = (playerInfo) playerD.getMamber(pl, tempString);
 			if(playerObj != null) {
 				
-				if(playerObj.getPosition().equals("GoalKeaper")) {
-					squadObj.setNumDef(squadObj.getNumGoal() + 1);
-				}else if(playerObj.getPosition().equals("Dedender")) {
-					squadObj.setNumDef(squadObj.getNumDef() + 1);
-				}else if(playerObj.getPosition().equals("Midfield")) {
-					squadObj.setNumDef(squadObj.geNumtMidF() + 1);
-				}else if(playerObj.getPosition().equals("Forward")) {
-					squadObj.setNumDef(squadObj.getNumForw() + 1);
+				for(playerInfo pObj : squadObj.sPlayerList) {
+					if(pObj.getpName().equals(playerObj.getpName()))
+						foundSamePlayer = true;
 				}
 				
-				squadObj.setCurSquadValue(playerObj.getPrice() + squadObj.getCurSquadValue());
+				if(playerObj.getPosition().equals("GoalKeaper") && squadObj.getNumGoal() < 2 && !foundSamePlayer) {
+					squadObj.setNumGoal(squadObj.getNumGoal() + 1);
+					can = true;
+				}else if(playerObj.getPosition().equals("Defender") && squadObj.getNumDef() < 5 && !foundSamePlayer) {
+					squadObj.setNumDef(squadObj.getNumDef() + 1);
+					can = true;
+				}else if(playerObj.getPosition().equals("Midfield") && squadObj.geNumtMidF() < 5 && !foundSamePlayer) {
+					squadObj.seNumtMidF(squadObj.geNumtMidF() + 1);
+					can = true;
+				}else if(playerObj.getPosition().equals("Forward") && squadObj.getNumForw() < 3 && !foundSamePlayer) {
+					squadObj.setNumForw(squadObj.getNumForw() + 1);
+					can = true;
+				}
 				
-				if(squadObj.getNumGoal() <= 2 && squadObj.getNumDef() <= 5 && squadObj.geNumtMidF() <= 5 && squadObj.getNumForw() <= 3) {
+								
+				if(squadObj.getNumGoal() <= 2 && squadObj.getNumDef() <= 5 && squadObj.geNumtMidF() <= 5 && squadObj.getNumForw() <= 3
+						&& playerObj.getPrice() + squadObj.getCurSquadValue() <= squadObj.getMaxSquadValue() && can && !foundSamePlayer) {
+										
+					squadObj.setCurSquadValue(playerObj.getPrice() + squadObj.getCurSquadValue());
+					
 					squadObj.sPlayerList.add(playerObj);
 					squadD.modifyData(pl);
 					System.out.println("player added to your squad successfully!");

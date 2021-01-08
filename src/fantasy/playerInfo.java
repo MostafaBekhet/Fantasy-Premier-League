@@ -6,6 +6,7 @@ public class playerInfo {
 	private String position;
 	private String club;
 	private int price;
+	private int points = 0;
 		
 	/////// setters
 	public void setpName(String n) {
@@ -28,6 +29,10 @@ public class playerInfo {
 		this.position = pos;
 	}
 	
+	public void setPoints(int p) {
+		this.points = p;
+	}
+	
 	
 	//// getters
 	public String getpName() {
@@ -48,5 +53,9 @@ public class playerInfo {
 	
 	public String getPosition() {
 		return this.position;
+	}
+	
+	public int getPoints() {
+		return this.points;
 	}
 }
