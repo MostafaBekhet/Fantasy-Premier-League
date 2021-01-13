@@ -8,6 +8,7 @@ public class adminUserInterAction {
 	private Scanner sc = new Scanner(System.in);
 	private Map<String , Integer> mp;
 	private playerDataController playerD = new playerDataController();
+	private gameWeekInfo gWeekObj;
 	
 	public Map<String , Integer> addEvent(parentLists pList) {
 		int c;
@@ -98,6 +99,32 @@ public class adminUserInterAction {
 		}
 		
 		return mp;
+	}
+	
+	public void endWeek(parentLists pl) {
+		
+		int temp;
+		System.out.print("Please Enter this week number to end it: ");
+		temp = sc.nextInt();
+		
+		gWeekObj = new gameWeekInfo();
+		
+		gWeekObj.setWeekNum(temp);
+		
+		for(squadInfo squadObj : pl.squadList) {
+			
+			String userMail = squadObj.getSquadUserMail();
+			int squadPoints = 0;
+			
+			for(playerInfo playerObj: squadObj.sPlayerList) {
+				squadPoints += playerObj.getPoints();
+			}
+			
+			gWeekObj.mp.put(userMail, squadPoints);
+			pl.gWeekList.add(gWeekObj);
+			
+		}
+		
 	}
 	
 }

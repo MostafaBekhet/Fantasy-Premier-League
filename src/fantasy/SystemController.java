@@ -11,11 +11,13 @@ class parentLists {
 	public ArrayList<userInfo> userList;
 	public ArrayList<playerInfo> playerList;
 	public ArrayList<squadInfo> squadList;
+	public ArrayList<gameWeekInfo> gWeekList;
 	
 	public parentLists() {
 		userList = new ArrayList<userInfo>();
 		playerList = new ArrayList<playerInfo>();
 		squadList = new ArrayList<squadInfo>();
+		gWeekList = new ArrayList<gameWeekInfo>();
 	}
 }
 
@@ -30,6 +32,7 @@ public class SystemController {
 	private DataController userData;
 	private DataController playerData;
 	private DataController squadData;
+	private DataController gameWeekData;
 	private userInfo userObj;
 	private playerInfo playerObj;
 	private parentLists pList;
@@ -71,6 +74,8 @@ public class SystemController {
 			squadData = new squadDataController();
 			squadData.retriveData(this.pList);
 			
+			gameWeekData = new gameWeekController();
+			gameWeekData.retriveData(this.pList);
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -143,6 +148,9 @@ public class SystemController {
 					
 					if(tempInt == 1) {
 						
+						adminUserInter.endWeek(this.pList);
+												
+						this.gameWeekData.modifyData(this.pList);
 						
 					}else if(tempInt == 2) {
 					
